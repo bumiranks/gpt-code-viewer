@@ -1,18 +1,3 @@
-async function loadStructure() {
-    const ignoreText = document.getElementById('ignoreEditor').value;
-
-    // Обновляем .chatignore
-    await fetch(`/session/${SESSION_UID}/chatignore`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: ignoreText,
-    });
-
-    // Загружаем структуру проекта
-    const res = await fetch(`/session/${SESSION_UID}/structure`);
-    const data = await res.json();
-    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-}
 
 function formatTree(data, prefix = '') {
     return data.map((item, idx) => {
@@ -41,14 +26,16 @@ async function refreshStructure() {
     // Загружаем структуру
     const res = await fetch(`/session/${SESSION_UID}/structure`);
     const data = await res.json();
-    const output = formatTree(data);
-    document.getElementById('tree').textContent = output;
+    document.getElementById('tree').textContent = formatTree(data);
 }
 
 async function loadIgnore() {
-    const res = await fetch(`/session/${SESSION_UID}/chatignore`);
-    const text = await res.ok ? await res.text() : '';
-    document.getElementById('ignoreEditor').value = text;
+    try {
+        const res = await fetch(`/session/${SESSION_UID}/chatignore`);
+        document.getElementById('ignoreEditor').value = res.ok ? await res.text() : 'not exists';
+    } catch (e) {
+        console.error('Failed to load .chatignore:', e);
+    }
 }
 
 async function saveIgnore() {
@@ -67,13 +54,7 @@ async function saveIgnore() {
     }
 }
 
-window.onload = () => {
-    loadIgnore();
-    refreshStructure();
-};
-
-
-window.onload = () => {
-    loadIgnore();
-    loadStructure();
+window.onload = async () => {
+    await loadIgnore();       // загружаем .chatignore
+    await refreshStructure(); // потом дерево
 };
