@@ -37,6 +37,28 @@ async function saveIgnore() {
     }
 }
 
+function formatTree(data, prefix = '') {
+    return data.map((item, idx) => {
+        const isLast = idx === data.length - 1;
+        const connector = isLast ? '└── ' : '├── ';
+        const newPrefix = prefix + (isLast ? '    ' : '│   ');
+
+        if (item.type === 'dir') {
+            return `${prefix}${connector}${item.name}/\n${formatTree(item.children || [], newPrefix)}`;
+        } else {
+            return `${prefix}${connector}${item.name}`;
+        }
+    }).join('\n');
+}
+
+async function refreshStructure() {
+    const res = await fetch('/session/mock/structure');
+    const data = await res.json();
+    const output = formatTree(data);
+    document.getElementById('output').textContent = output;
+}
+
+
 window.onload = () => {
     loadIgnore();
     loadStructure();
