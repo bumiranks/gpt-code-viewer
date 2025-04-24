@@ -1,8 +1,19 @@
 async function loadStructure() {
+    const ignoreText = document.getElementById('ignoreEditor').value;
+
+    // Обновляем .chatignore
+    await fetch('/session/mock/chatignore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: ignoreText,
+    });
+
+    // Загружаем структуру проекта
     const res = await fetch('/session/mock/structure');
     const data = await res.json();
     document.getElementById('output').textContent = JSON.stringify(data, null, 2);
 }
+
 async function loadIgnore() {
     const res = await fetch('/session/mock/chatignore');
     const text = await res.ok ? await res.text() : '';
