@@ -31,7 +31,12 @@ const PORT = process.env.PORT || 3000;
                 const text = `Public UI: ${publicURL}/ui`;
 
                 // 💾 Сохраняем в файл
-                fs.writeFileSync(path.resolve('ui/static/public-url.txt'), publicURL);
+                const staticDir = path.resolve('ui/static');
+                if (!fs.existsSync(staticDir)) {
+                    fs.mkdirSync(staticDir, { recursive: true });
+                }
+                fs.writeFileSync(path.join(staticDir, 'public-url.txt'), publicURL);
+
 
                 // 📋 Копируем в буфер обмена
                 try {
