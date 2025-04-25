@@ -1,4 +1,15 @@
 # GPT Code Viewer
+<!-- Badges for GPT Code Viewer -->
+
+![License](https://img.shields.io/github/license/bumiranks/gpt-code-viewer)
+![Last Commit](https://img.shields.io/github/last-commit/bumiranks/gpt-code-viewer)
+![Issues](https://img.shields.io/github/issues/bumiranks/gpt-code-viewer)
+![Pull Requests](https://img.shields.io/github/issues-pr/bumiranks/gpt-code-viewer)
+![Repo Size](https://img.shields.io/github/repo-size/bumiranks/gpt-code-viewer)
+
+<!-- If published to npm in the future, uncomment this:
+![npm](https://img.shields.io/npm/v/gpt-code-viewer)
+-->
 
 **GPT Code Viewer** is a lightweight, local web server that lets you securely expose your project's code structure and files to ChatGPT in a browser session — without any API keys or authentication.
 
