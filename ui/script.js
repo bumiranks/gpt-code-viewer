@@ -95,16 +95,23 @@ async function loadProjectPath() {
 
 function showPublicUrl() {
     const link = document.getElementById('publicUrl');
-    const uiUrl = `${location.origin}/ui`;
-    link.href = uiUrl;
-    link.textContent = uiUrl;
+    link.href = `${location.origin}/ui`;
+    link.textContent = `${location.origin}/ui`;
 }
 
-function copyChatLink() {
+function copyStructureLink() {
     const structureUrl = `${location.origin}/session/${SESSION_UID}/structure`;
     navigator.clipboard.writeText(structureUrl)
-        .then(() => alert('🔗 Copied structure link to clipboard for ChatGPT!'))
-        .catch(() => alert('❌ Failed to copy link.'));
+        .then(() => {
+            const status = document.getElementById('copyStatus');
+            status.style.display = 'inline';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 2000);
+        })
+        .catch(() => {
+            alert('❌ Failed to copy structure link.');
+        });
 }
 
 window.onload = async () => {

@@ -8,10 +8,14 @@
 <body>
 <h1>GPT Code Viewer</h1>
 <p><strong>Project Folder:</strong> <span id="projectPath">(loading...)</span></p>
-<<p>
-    <strong>Public URL:</strong>
+<p>
+    <strong>Public UI:</strong>
     <a href="#" id="publicUrl" target="_blank">(loading...)</a>
-    <button onclick="copyChatLink()">Copy for ChatGPT</button>
+</p>
+
+<p>
+    <button onclick="copyStructureLink()">Copy Structure Link for ChatGPT</button>
+    <span id="copyStatus" style="margin-left: 10px; color: green; display: none;">✔️ Copied</span>
 </p>
 
 
