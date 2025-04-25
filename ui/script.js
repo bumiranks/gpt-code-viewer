@@ -93,7 +93,20 @@ async function loadProjectPath() {
     document.getElementById('projectPath').textContent = data.path;
 }
 
+async function loadPublicUrl() {
+    try {
+        const res = await fetch('/ui/static/public-url.txt');
+        const url = await res.text();
+        const link = document.getElementById('publicUrl');
+        link.href = `${url}/ui`;
+        link.textContent = `${url}/ui`;
+    } catch (e) {
+        console.warn('No public URL found yet');
+    }
+}
+
 window.onload = async () => {
+    await loadPublicUrl();
     await loadProjectPath();
     await loadIgnore();
     await refreshStructure();

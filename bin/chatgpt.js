@@ -3,6 +3,9 @@
 import { startServer } from '../lib/server.js';
 import { spawn } from 'child_process';
 import readline from 'readline';
+import fs from 'fs';
+import path from 'path';
+import clipboard from 'clipboardy';
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,6 +28,21 @@ const PORT = process.env.PORT || 3000;
             const urlMatch = line.match(/https:\/\/[^\s]+\.trycloudflare\.com/);
             if (urlMatch) {
                 const publicURL = urlMatch[0];
+                const text = `Public UI: ${publicURL}/ui`;
+
+                // 💾 Сохраняем в файл
+                fs.writeFileSync(path.resolve('ui/static/public-url.txt'), publicURL);
+
+                // 📋 Копируем в буфер обмена
+                try {
+                    clipboard.writeSync(`${publicURL}/ui`);
+                    console.log('📋 Copied public URL to clipboard!');
+                } catch (err) {
+                    console.warn('⚠️ Failed to copy to clipboard:', err.message);
+                }
+
+                console.log('\\n🌍 Public tunnel established!');
+                console.log(`🔗 UI:    ${publicURL}/ui`);
                 console.log('\n🌍 Public tunnel established!');
                 console.log(`🔗 UI:    ${publicURL}/ui`);
                 console.log(`📂 Tree:  ${publicURL}/session/${uid}/structure`);
