@@ -93,31 +93,24 @@ async function loadProjectPath() {
     document.getElementById('projectPath').textContent = data.path;
 }
 
-async function loadPublicUrl() {
-    try {
-        const res = await fetch('/ui/static/public-url.txt');
-        const url = await res.text();
-        const link = document.getElementById('publicUrl');
-        link.href = `${url}/ui`;
-        link.textContent = `${url}/ui`;
-    } catch (e) {
-        console.warn('No public URL found yet');
-    }
+function showPublicUrl() {
+    const link = document.getElementById('publicUrl');
+    const uiUrl = `${location.origin}/ui`;
+    link.href = uiUrl;
+    link.textContent = uiUrl;
 }
 
 function copyChatLink() {
-    const url = document.getElementById('publicUrl').textContent;
-    if (!url || url.includes('(loading')) return alert('Public URL not yet available.');
-
-    const structureUrl = `${url.replace(/\/ui$/, '')}/session/${SESSION_UID}/structure`;
+    const structureUrl = `${location.origin}/session/${SESSION_UID}/structure`;
     navigator.clipboard.writeText(structureUrl)
         .then(() => alert('🔗 Copied structure link to clipboard for ChatGPT!'))
         .catch(() => alert('❌ Failed to copy link.'));
 }
 
 
+
 window.onload = async () => {
-    await loadPublicUrl();
+    await showPublicUrl();
     await loadProjectPath();
     await loadIgnore();
     await refreshStructure();
