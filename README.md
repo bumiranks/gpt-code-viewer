@@ -1,7 +1,7 @@
 # GPT Code Viewer
 <!-- Badges for GPT Code Viewer -->
 
-![License](https://img.shields.io/github/license/bumiranks/gpt-code-viewer)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/bumiranks/gpt-code-viewer/blob/master/LICENSE)
 ![Last Commit](https://img.shields.io/github/last-commit/bumiranks/gpt-code-viewer)
 ![Issues](https://img.shields.io/github/issues/bumiranks/gpt-code-viewer)
 ![Pull Requests](https://img.shields.io/github/issues-pr/bumiranks/gpt-code-viewer)
