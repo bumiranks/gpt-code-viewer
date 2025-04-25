@@ -150,3 +150,8 @@ node_modules/
 
 - This tool is intended for **local use only**.
 - It works best with tunneling tools like **cloudflared** for sharing access over the internet (optional future step).
+
+## 📄 License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](./LICENSE) file for details.
