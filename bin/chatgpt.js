@@ -23,22 +23,17 @@ const PORT = process.env.PORT || 3000;
     const rlErr = readline.createInterface({ input: tunnel.stderr });
 
     const handleLine = (line) => {
-        console.log('[cloudflared]', line);
         if (line.includes('trycloudflare.com')) {
             const urlMatch = line.match(/https:\/\/[^\s]+\.trycloudflare\.com/);
             if (urlMatch) {
                 const publicURL = urlMatch[0];
-                const text = `Public UI: ${publicURL}/ui`;
 
-                // 💾 Сохраняем в файл
                 const staticDir = path.resolve('ui/static');
                 if (!fs.existsSync(staticDir)) {
                     fs.mkdirSync(staticDir, { recursive: true });
                 }
                 fs.writeFileSync(path.join(staticDir, 'public-url.txt'), publicURL);
 
-
-                // 📋 Копируем в буфер обмена
                 try {
                     clipboard.writeSync(`${publicURL}/ui`);
                     console.log('📋 Copied public URL to clipboard!');
@@ -46,8 +41,6 @@ const PORT = process.env.PORT || 3000;
                     console.warn('⚠️ Failed to copy to clipboard:', err.message);
                 }
 
-                console.log('\\n🌍 Public tunnel established!');
-                console.log(`🔗 UI:    ${publicURL}/ui`);
                 console.log('\n🌍 Public tunnel established!');
                 console.log(`🔗 UI:    ${publicURL}/ui`);
                 console.log(`📂 Tree:  ${publicURL}/session/${uid}/structure`);
@@ -55,6 +48,7 @@ const PORT = process.env.PORT || 3000;
             }
         }
     };
+
 
     rlOut.on('line', handleLine);
     rlErr.on('line', handleLine);
