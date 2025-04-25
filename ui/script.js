@@ -1,32 +1,50 @@
 
-function formatTree(data, prefix = '') {
-    return data.map((item, idx) => {
-        const isLast = idx === data.length - 1;
-        const connector = isLast ? '└── ' : '├── ';
-        const newPrefix = prefix + (isLast ? '    ' : '│   ');
+function renderTree(container, data, prefix = '') {
+    container.innerHTML = ''; // очистить
 
-        if (item.type === 'dir') {
-            return `${prefix}${connector}${item.name}/\n${formatTree(item.children || [], newPrefix)}`;
-        } else {
-            return `${prefix}${connector}${item.name}`;
-        }
-    }).join('\n');
+    function walk(nodes, prefix = '') {
+        nodes.forEach((item, idx) => {
+            const isLast = idx === nodes.length - 1;
+            const connector = isLast ? '└── ' : '├── ';
+            const newPrefix = prefix + (isLast ? '    ' : '│   ');
+
+            const line = document.createElement('div');
+            line.classList.add('tree-line');
+
+            if (item.type === 'file') {
+                const span = document.createElement('span');
+                span.classList.add('clickable');
+                span.textContent = connector + item.name;
+                span.onclick = () => loadFile(item.path);
+                line.append(prefix, span);
+            } else {
+                line.textContent = prefix + connector + item.name + '/';
+                container.appendChild(line);
+                walk(item.children || [], newPrefix);
+                return;
+            }
+
+            container.appendChild(line);
+        });
+    }
+
+    walk(data, prefix);
 }
 
 async function refreshStructure() {
     const ignoreText = document.getElementById('ignoreEditor').value;
 
-    // Сохраняем .chatignore
     await fetch(`/session/${SESSION_UID}/chatignore`, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: ignoreText,
     });
 
-    // Загружаем структуру
     const res = await fetch(`/session/${SESSION_UID}/structure`);
     const data = await res.json();
-    document.getElementById('tree').textContent = formatTree(data);
+
+    const treeContainer = document.getElementById('tree');
+    renderTree(treeContainer, data);
 }
 
 async function loadIgnore() {
@@ -53,6 +71,22 @@ async function saveIgnore() {
         alert('Failed to save.');
     }
 }
+
+async function loadFile(path) {
+    const res = await fetch(`/session/${SESSION_UID}/file?path=${encodeURIComponent(path)}`);
+    if (!res.ok) {
+        document.getElementById('fileContent').textContent = `Failed to load file: ${path}`;
+        return;
+    }
+
+    const text = await res.text();
+    document.getElementById('fileContent').textContent = text;
+
+    // 📎 Копируем ссылку в консоль для вставки в ChatGPT
+    const link = `${window.location.origin}/session/${SESSION_UID}/file?path=${encodeURIComponent(path)}`;
+    console.log('Link to file:', link);
+}
+
 
 window.onload = async () => {
     await loadIgnore();       // загружаем .chatignore

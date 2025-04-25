@@ -5,3 +5,19 @@
     font-family: monospace;
     white-space: pre;
 }
+.code-preview {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    padding: 1em;
+    white-space: pre-wrap;
+    font-family: monospace;
+    max-height: 400px;
+    overflow: auto;
+}
+.clickable {
+    color: #0055aa;
+    cursor: pointer;
+}
+.clickable:hover {
+    text-decoration: underline;
+}
