@@ -28,12 +28,6 @@ const PORT = process.env.PORT || 3000;
             if (urlMatch) {
                 const publicURL = urlMatch[0];
 
-                const staticDir = path.resolve('ui/static');
-                if (!fs.existsSync(staticDir)) {
-                    fs.mkdirSync(staticDir, { recursive: true });
-                }
-                fs.writeFileSync(path.join(staticDir, 'public-url.txt'), publicURL);
-
                 try {
                     clipboard.writeSync(`${publicURL}/ui`);
                     console.log('📋 Copied public URL to clipboard!');

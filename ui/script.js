@@ -107,8 +107,6 @@ function copyChatLink() {
         .catch(() => alert('❌ Failed to copy link.'));
 }
 
-
-
 window.onload = async () => {
     await showPublicUrl();
     await loadProjectPath();
