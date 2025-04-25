@@ -87,8 +87,15 @@ async function loadFile(path) {
     console.log('Link to file:', link);
 }
 
+async function loadProjectPath() {
+    const res = await fetch(`/session/${SESSION_UID}/project-path`);
+    const data = await res.json();
+    document.getElementById('projectPath').textContent = data.path;
+}
 
 window.onload = async () => {
-    await loadIgnore();       // загружаем .chatignore
-    await refreshStructure(); // потом дерево
+    await loadProjectPath();
+    await loadIgnore();
+    await refreshStructure();
 };
+
