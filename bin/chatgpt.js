@@ -3,8 +3,6 @@
 import { startServer } from '../lib/server.js';
 import { spawn } from 'child_process';
 import readline from 'readline';
-import fs from 'fs';
-import path from 'path';
 import clipboard from 'clipboardy';
 
 const PORT = process.env.PORT || 3000;
@@ -15,10 +13,10 @@ const PORT = process.env.PORT || 3000;
     console.log(`🧠 Local UI:    http://localhost:${PORT}/ui`);
     console.log(`🧠 Local API:   http://localhost:${PORT}/session/${uid}/structure`);
 
-    // 🌐 Запуск cloudflared
+    // 🌐 Start cloudflared
     const tunnel = spawn('cloudflared', ['tunnel', '--url', `http://localhost:${PORT}`]);
 
-    // 🔎 Обрабатываем и stdout, и stderr (для Windows и Linux)
+    // 🔎 Use stdout and stderr (for Windows & Linux)
     const rlOut = readline.createInterface({ input: tunnel.stdout });
     const rlErr = readline.createInterface({ input: tunnel.stderr });
 

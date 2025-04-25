@@ -1,6 +1,6 @@
 
 function renderTree(container, data, prefix = '') {
-    container.innerHTML = ''; // очистить
+    container.innerHTML = '';
 
     function walk(nodes, prefix = '') {
         nodes.forEach((item, idx) => {
@@ -66,7 +66,7 @@ async function saveIgnore() {
 
     if (res.ok) {
         alert('Saved!');
-        refreshStructure(); // Обновить дерево
+        refreshStructure();
     } else {
         alert('Failed to save.');
     }
@@ -79,10 +79,9 @@ async function loadFile(path) {
         return;
     }
 
-    const text = await res.text();
-    document.getElementById('fileContent').textContent = text;
+    document.getElementById('fileContent').textContent = await res.text();
 
-    // 📎 Копируем ссылку в консоль для вставки в ChatGPT
+    // 📎 Copy link to send for ChatGPT
     const link = `${window.location.origin}/session/${SESSION_UID}/file?path=${encodeURIComponent(path)}`;
     console.log('Link to file:', link);
 }
