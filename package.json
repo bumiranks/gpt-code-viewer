@@ -1,6 +1,6 @@
 {
   "name": "gpt-code-viewer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Securely expose your local codebase to ChatGPT via browser",
   "type": "module",
   "bin": {
@@ -11,9 +11,10 @@
   },
   "license": "MIT",
   "dependencies": {
+    "clipboardy": "^3.0.0",
     "express": "^5.1.0",
-    "uuid": "^11.1.0",
-    "clipboardy": "^3.0.0"
+    "minimatch": "^10.0.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
