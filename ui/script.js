@@ -94,8 +94,9 @@ async function loadProjectPath() {
 
 function showPublicUrl() {
     const link = document.getElementById('publicUrl');
-    link.href = `${location.origin}/ui`;
-    link.textContent = `${location.origin}/ui`;
+    const url = `${location.origin}/session/${SESSION_UID}/ui`;
+    link.href = url;
+    link.textContent = url;
 }
 
 function copyStructureLink() {

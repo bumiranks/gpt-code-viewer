@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 3000;
                 }
 
                 console.log('\n🌍 Public tunnel established!');
-                console.log(`🔗 UI:    ${publicURL}/ui`);
+                console.log(`🔗 UI:    ${publicURL}/session/${uid}/ui`);
                 console.log(`📂 Tree:  ${publicURL}/session/${uid}/structure`);
                 console.log(`📄 File:  ${publicURL}/session/${uid}/file?path=README.md`);
             }
