@@ -8,7 +8,12 @@
 <body>
 <h1>GPT Code Viewer</h1>
 <p><strong>Project Folder:</strong> <span id="projectPath">(loading...)</span></p>
-<p><strong>Public URL:</strong> <a href="#" id="publicUrl" target="_blank">(loading...)</a></p>
+<p>
+    <strong>Public URL:</strong>
+    <a href="#" id="publicUrl" target="_blank">(loading...)</a>
+    <button onclick="copyChatLink()">Copy for ChatGPT</button>
+</p>
+
 
 <button onclick="refreshStructure()">Refresh</button>
 <pre id="tree" class="tree-output">Project structure will appear here...</pre>

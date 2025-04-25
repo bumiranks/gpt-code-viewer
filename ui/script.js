@@ -105,6 +105,17 @@ async function loadPublicUrl() {
     }
 }
 
+function copyChatLink() {
+    const url = document.getElementById('publicUrl').textContent;
+    if (!url || url.includes('(loading')) return alert('Public URL not yet available.');
+
+    const structureUrl = `${url.replace(/\/ui$/, '')}/session/${SESSION_UID}/structure`;
+    navigator.clipboard.writeText(structureUrl)
+        .then(() => alert('🔗 Copied structure link to clipboard for ChatGPT!'))
+        .catch(() => alert('❌ Failed to copy link.'));
+}
+
+
 window.onload = async () => {
     await loadPublicUrl();
     await loadProjectPath();
