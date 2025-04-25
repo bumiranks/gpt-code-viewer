@@ -151,6 +151,43 @@ node_modules/
 - This tool is intended for **local use only**.
 - It works best with tunneling tools like **cloudflared** for sharing access over the internet (optional future step).
 
+## 🧰 Use as a CLI Tool
+
+You can install GPT Code Viewer as a development dependency:
+
+```bash
+npm install --save-dev gpt-code-viewer
+```
+
+Then run it directly with:
+
+```bash
+npx gpt-code-viewer
+```
+
+Or, if you prefer to use it in your `package.json`:
+
+```json
+{
+  "scripts": {
+    "chat-gpt": "gpt-code-viewer"
+  }
+}
+```
+
+Now you can simply run:
+
+```bash
+npm run chat-gpt
+```
+
+This will:
+- Start the local server
+- Launch a public tunnel via `cloudflared`
+- Copy the public UI URL to clipboard
+- Expose your session with a secure `/session/:uid/` path structure
+
+
 ## 📄 License
 
 This project is licensed under the MIT License.  
